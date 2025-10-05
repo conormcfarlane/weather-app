@@ -1,15 +1,19 @@
 import React from 'react'
+import { useState } from 'react'
 import Header from "./Header"
 import Search from './Search'
+import MainTempHero from './MainTempHero'
 export default function Layout() {
+  const [city,setCity] = useState<string>("")
   return (
     <div className='px-4'>
       <Header />
       <main className='flex flex-col gap-12'>
         <h1 className='text-[3.25rem] text-center leading-[120%]'>How's the sky looking today? </h1>
         <section>
-         <Search/>
+         <Search city={city} setCity={setCity}/>
         </section>
+        <MainTempHero city={city}/>
       </main>
     </div>
   )

@@ -1,39 +1,45 @@
-import { useState,useEffect} from "react";
+import { useState, useEffect } from "react";
 
-function useWeatherApi(query: string){
-    const [data,setData] = useState<any>("")
-    const [loading,setLoading] = useState<boolean>(true);
-    const [error,setError] = useState<string | null >("");
+const useWeatherApi = (query:string) => {
 
+    const [data,setData] = useState<any>(null);
+    const [loading,setLoading] = useState<boolean>(false)
+    const [error,setError] = useState<string | null>(null)
     useEffect(() => {
+        // Stops Api firing on page load
+        if(!query) return; 
+        // ELSE
         const fetchWeather = async () => {
-            setLoading(true)
-            setError(null)
-
             try{
-                // fetch geo lat and longititude
-                const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(query)}`)
-                const geoData = await geoRes.json();
+                setLoading(true)
+                setError(null)
+                // Try fetch Longitude and Latitude Co-ords
+                const geoResonse = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(query)}`)
+                const geoData = await geoResonse.json();
                 if(!geoData.results || geoData.results.length === 0){
-                    setError("Location not found")
+                    setError("Cant retrieve location co-ordinates")
                     setLoading(false);
-                    return;
+                    return
                 }
 
-                // 2 get weather using lat and long 
-                const {latitude,longitude} = geoData.results[0]
-                const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m`)
-                const weatherData = await weatherRes.json();
-                setData(weatherData);
+                // Try use geoData co-oridinates to search for weather
+                const {longitude, latitude, country} = geoData.results[0]
+                const weatherResponse = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min,weather_code&hourly=temperature_2m,weather_code&current=temperature_2m,apparent_temperature,relative_humidity_2m,is_day,precipitation,weather_code,wind_speed_10m&timezone=auto`)
+                const weatherData = await weatherResponse.json();
+                setData({weather: weatherData, country})
             }catch{
-                setError("Failed to retireve weather data")
+                setError("Failed to retrieve weather data")
             }finally{
                 setLoading(false)
             }
         }
-        fetchWeather()
-    },[query]);
-    return {data,loading,error};
+        fetchWeather();
+    },[query])
+    useEffect(() => {
+    console.log(data)
+},[data])
+    return{data,loading,error}
+    
 }
 
-export default useWeatherApi;
+export default useWeatherApi
