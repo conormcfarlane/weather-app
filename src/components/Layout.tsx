@@ -4,7 +4,7 @@ import Header from "./Header"
 import Search from './Search'
 import MainTempHero from './MainTempHero'
 export default function Layout() {
-  const [city,setCity] = useState<string>("")
+  const [city,setCity] = useState<string>("Berlin")
   return (
     <div className='px-4'>
       <Header />
