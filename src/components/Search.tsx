@@ -35,13 +35,7 @@ export default function Search({city,setCity}: SearchProps) {
       </form>
       {loading && <p>Loading...</p>}
 {error && <p className="text-red-500">{error}</p>}
-{data && (
-  <div>
-    <h2>Weather Data</h2>
-    {data && console.log(data)}
-    <p>{data.current?.temperature_2m}</p>
-  </div>
-)}
+
     </section>
   )
 }

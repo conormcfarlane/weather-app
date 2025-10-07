@@ -3,6 +3,8 @@ import { useState } from 'react'
 import Header from "./Header"
 import Search from './Search'
 import MainTempHero from './MainTempHero'
+import DailyForecast from './DailyForecast'
+import CurrentWeatherCards from './CurrentWeatherCards'
 export default function Layout() {
   const [city,setCity] = useState<string>("Berlin")
   return (
@@ -14,6 +16,8 @@ export default function Layout() {
          <Search city={city} setCity={setCity}/>
         </section>
         <MainTempHero city={city}/>
+        <CurrentWeatherCards city={city} />
+        <DailyForecast city={city} /> 
       </main>
     </div>
   )
