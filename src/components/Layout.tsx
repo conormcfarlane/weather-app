@@ -1,26 +1,14 @@
 import React from 'react'
-import { useState } from 'react'
-import Header from "./Header"
-import Search from './Search'
+import Header from './Header'
 import MainTempHero from './MainTempHero'
-import DailyForecast from './DailyForecast'
-import CurrentWeatherCards from './CurrentWeatherCards'
-import HourlyForecast from './HourlyForecast'
-export default function Layout() {
-  const [city,setCity] = useState<string>("Berlin")
+import Search from './Search'
+
+export default function layout() {
   return (
-    <div className='px-4'>
-      <Header />
-      <main className='flex flex-col gap-12'>
-        <h1 className='text-[3.25rem] text-center leading-[120%]'>How's the sky looking today? </h1>
-        <section>
-         <Search city={city} setCity={setCity}/>
-        </section>
-        <MainTempHero city={city}/>
-        <CurrentWeatherCards city={city} />
-        <DailyForecast city={city} /> 
-        <HourlyForecast city={city} />
-      </main>
+    <div className='bg-neutral-800 text-white px-4'>
+      <h1 className="text-[3.25rem] text-center mb-3"> How's the sky looking today?</h1> 
+      <Search />
+      <MainTempHero />
     </div>
   )
 }
