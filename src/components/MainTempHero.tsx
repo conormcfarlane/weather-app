@@ -1,7 +1,28 @@
-import React from 'react'
+import React from "react";
+import useWeatherApi from "../hooks/useWeatherApi";
 
-export default function MainTempHero() {
+interface SearchProps {
+  city: string;
+}
+export default function MainTempHero({ city }: SearchProps) {
+  const { data } = useWeatherApi(city);
   return (
-    <div>MainTempHero</div>
-  )
+    <section>
+      {data && (
+        <>
+          <div>
+            <p>
+              {city},{" "}
+              {data?.country}
+            </p>
+            <p></p>
+          </div>
+          <div>
+            <img src="" alt="" />
+            <p></p>
+          </div>
+        </>
+      )}
+    </section>
+  );
 }

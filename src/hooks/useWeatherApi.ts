@@ -12,7 +12,8 @@ interface WeatherResult{
     hourly?:{
         time:string[];
         temperature_2m:number[];
-    }
+    };
+    country?: string;
 }
 
 function useWeatherApi(query:string){
@@ -46,7 +47,7 @@ function useWeatherApi(query:string){
                 return
             }
             // 2nd use long and lat to retrieve data
-            const {longitude,latitude} = geoData.results[0]
+            const {longitude,latitude, country} = geoData.results[0]
             const timezone = encodeURIComponent(geoData.results[0].timezone)
             const weatherResponse = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=weather_code,temperature_2m_max,temperature_2m_min&hourly=temperature_2m,weather_code&current=temperature_2m,weather_code,apparent_temperature,relative_humidity_2m,wind_speed_10m,precipitation&timezone=${timezone}`)
             if(!weatherResponse.ok){
@@ -55,7 +56,7 @@ function useWeatherApi(query:string){
                 return
             }
             const weatherData : WeatherResult = await weatherResponse.json()
-            setData(weatherData)
+            setData({...weatherData, country})
         }catch(err){
             setError("Failed to fetch any data")
         }finally{
