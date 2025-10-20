@@ -9,6 +9,14 @@ interface GeoResult {
 }
 // Weather Data Types
 interface WeatherResult{
+    current?:{
+        time:string;
+        weather_code:number;
+        apparent_temperature:number;
+        relative_humidity_2m:number;
+        wind_speed_10m:number;
+        precipitation:number;
+    },
     hourly?:{
         time:string[];
         temperature_2m:number[];

@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import Header from './Header'
 import MainTempHero from './MainTempHero'
+import CurrentWeatherCards from './CurrentWeatherCards'
 import Search from './Search'
 
 export default function layout() {
@@ -11,6 +12,7 @@ export default function layout() {
       <h1 className="text-[3.25rem] text-center mb-3"> How's the sky looking today?</h1> 
       <Search city={city} setCity={setCity}/>
       <MainTempHero city={city} />
+      <CurrentWeatherCards city={city} />
     </div>
   )
 }
