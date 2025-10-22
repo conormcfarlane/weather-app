@@ -4,6 +4,8 @@ import Header from './Header'
 import MainTempHero from './MainTempHero'
 import CurrentWeatherCards from './CurrentWeatherCards'
 import Search from './Search'
+import DailyForecast from './DailyForecast'
+import HourlyForecast from './HourlyForecast'
 
 export default function layout() {
    const [city,setCity] = useState<string>("Berlin")
@@ -13,6 +15,9 @@ export default function layout() {
       <Search city={city} setCity={setCity}/>
       <MainTempHero city={city} />
       <CurrentWeatherCards city={city} />
+      <DailyForecast city={city} />
+      <HourlyForecast city={city} />
+
     </div>
   )
 }
