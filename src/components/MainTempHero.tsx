@@ -16,16 +16,16 @@ export default function MainTempHero({ city }: SearchProps) {
       })
     : "";
   return (
-    <section className="px-6 py-10 bg-blue-500 flex flex-col items-center text-center rounded-xl">
+    <section className="px-6 py-10 bg-blue-500 flex flex-col items-center text-center rounded-xl md:flex-row md:justify-between">
       {data && (
         <>
-          <div>
-            <p className="text-3xl mb-3">
+          <div className="">
+            <p className="text-3xl mb-3 font-bold">
               {city}, {data?.country}
             </p>
             <p className="text-lg">{formattedDate}</p>
           </div>
-          <div className="flex justify-between bg-green-500 w-full">
+          <div className="flex justify-between bg-green-500 w-full md:w-1/2">
             {data?.current?.weather_code != null ? (
               <img
                 src={getWeatherIcons(data?.current?.weather_code)}

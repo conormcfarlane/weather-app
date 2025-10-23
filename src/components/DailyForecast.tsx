@@ -11,9 +11,9 @@ export default function DailyForecast({ city }: SearchProps) {
   const dailyWeather = data?.daily;
 
   return (
-    <section>
-      <p>Daily Forecast</p>
-      <div className="grid grid-cols-3 gap-4">
+    <section className="bg-red-500">
+      <p className="font-bold mb-5">Daily Forecast</p>
+      <div className="grid grid-cols-3 gap-4 md:grid-cols-7">
         {dailyWeather?.time.map((dateStamp, index) => {
             const shortDay = new Date(dateStamp).toLocaleDateString("en-GB",{weekday:"short"})
           return (

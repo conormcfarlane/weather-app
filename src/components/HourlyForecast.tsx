@@ -13,21 +13,27 @@ export default function HourlyForecast({ city }: SearchProps) {
   const startIndex = selectedDay * 24;
   const endIndex = startIndex + 24;
   return (
-    <section className="p-4">
-      <div>
-        <p>Hourly Forecast</p>
-        {dailyTimes?.map((timeStamp, index) => {
+    <section className="bg-neutral-700 p-6 rounded-xl">
+      <div className="flex justify-between items-center mb-4">
+        <p className="font-bold">Hourly Forecast</p>
+        <select value={selectedDay} className="bg-neutral-600 px-4 py-2 rounded-xl cursor-pointer"
+        onChange={(e) => setSelectedDay(Number(e.target.value))}
+        >
+          {dailyTimes?.map((timeStamp, index) => {
           const dayName = new Date(timeStamp).toLocaleDateString("en-GB", {
             weekday: "long",
           });
           return (
-            <p key={timeStamp} onClick={() => setSelectedDay(index)}>
+            <option key={timeStamp} value={index} className="cursor-pointer">  
               {dayName}
-            </p>
+            </option>
           );
         })}
+
+        </select>
+        
       </div>
-      <div>
+      <div className="flex flex-col gap-4 max-h-[calc(8*4rem)] overflow-scroll rounded-xl">
         {hourlyTimes?.slice(startIndex, endIndex).map((hourTime, index) => {
           const actualIndex = startIndex + index;
           const code = data?.hourly?.weather_code[actualIndex];
@@ -38,7 +44,10 @@ export default function HourlyForecast({ city }: SearchProps) {
               })
             : "";
           return (
-            <div key={hourTime} className="flex justify-between items-center p-4">
+            <div
+              key={hourTime}
+              className="flex justify-between items-center px-4 py-2 bg-neutral-600 rounded-xl"
+            >
               <div className="flex gap-3 items-center">
                 {code != null ? (
                   <img src={getWeatherIcons(code)} alt="" className="h-10" />

@@ -15,7 +15,7 @@ export default function CurrentWeatherCards({city}:SearchProps) {
     
     ]
   return (
-    <section className='grid grid-cols-2 gap-4'>
+    <section className='grid grid-cols-2 gap-4 md:grid-cols-4'>
         {currentWeatherCardInfo.map((card) => (
             <div key={card.title} className='bg-neutral-700 p-5 space-y-6 rounded-xl'>
                 <p className='text-xl'>{card.title}</p>
